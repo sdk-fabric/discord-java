@@ -1,0 +1,9 @@
+{
+  "type": "client-java",
+  "require": {
+    "sdkfabric/discord": {
+      "target": "./src",
+      "namespace": "org.sdkfabric.discord"
+    }
+  }
+}
