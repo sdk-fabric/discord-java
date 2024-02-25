@@ -31,7 +31,7 @@ public class ChannelMessageTag extends TagAbstract {
 
 
     /**
-     * Retrieves the messages in a channel
+     * Retrieves the messages in a channel.
      */
     public Message getAll(String channelId, String around, String before, String after, int limit) throws ClientException {
         try {
