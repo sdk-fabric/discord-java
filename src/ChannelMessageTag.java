@@ -33,7 +33,7 @@ public class ChannelMessageTag extends TagAbstract {
     /**
      * Retrieves the messages in a channel.
      */
-    public Message getAll(String channelId, String around, String before, String after, int limit) throws ClientException {
+    public List<Message> getAll(String channelId, String around, String before, String after, int limit) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
             pathParams.put("channel_id", channelId);
@@ -54,7 +54,7 @@ public class ChannelMessageTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, Message.class);
+                return this.parser.parse(resp.payload, List&lt;Message&gt;.class);
             }
 
             switch (resp.code) {
