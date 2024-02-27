@@ -31,6 +31,42 @@ public class ChannelMessageTag extends TagAbstract {
 
 
     /**
+     * Retrieves the messages in a channel.
+     */
+    public List<Message> getAll(String channelId, String around, String before, String after, int limit) throws ClientException {
+        try {
+            Map<String, Object> pathParams = new HashMap<>();
+            pathParams.put("channel_id", channelId);
+
+            Map<String, Object> queryParams = new HashMap<>();
+            queryParams.put("around", around);
+            queryParams.put("before", before);
+            queryParams.put("after", after);
+            queryParams.put("limit", limit);
+
+            URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages", pathParams));
+            this.parser.query(builder, queryParams);
+
+            HttpGet request = new HttpGet(builder.build());
+
+            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
+                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            });
+
+            if (resp.code >= 200 && resp.code < 300) {
+                return this.parser.parse(resp.payload, List&lt;Message&gt;.class);
+            }
+
+            switch (resp.code) {
+                default:
+                    throw new UnknownStatusCodeException("The server returned an unknown status code");
+            }
+        } catch (URISyntaxException | IOException e) {
+            throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
+        }
+    }
+
+    /**
      * Retrieves a specific message in the channel. Returns a message object on success.
      */
     public Message get(String channelId, String messageId) throws ClientException {
