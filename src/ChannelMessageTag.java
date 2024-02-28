@@ -54,7 +54,7 @@ public class ChannelMessageTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, List&lt;Message&gt;.class);
+                return this.parser.parse(resp.payload, List<Message>.class);
             }
 
             switch (resp.code) {
