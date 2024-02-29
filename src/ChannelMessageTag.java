@@ -132,6 +132,41 @@ public class ChannelMessageTag extends TagAbstract {
     }
 
     /**
+     * Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author. Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+     */
+    public Message update(String channelId, String messageId, Message payload) throws ClientException {
+        try {
+            Map<String, Object> pathParams = new HashMap<>();
+            pathParams.put("channel_id", channelId);
+            pathParams.put("message_id", messageId);
+
+            Map<String, Object> queryParams = new HashMap<>();
+
+            URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id", pathParams));
+            this.parser.query(builder, queryParams);
+
+            HttpPatch request = new HttpPatch(builder.build());
+            request.addHeader("Content-Type", "application/json");
+            request.setEntity(new StringEntity(this.objectMapper.writeValueAsString(payload), ContentType.APPLICATION_JSON));
+
+            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
+                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            });
+
+            if (resp.code >= 200 && resp.code < 300) {
+                return this.parser.parse(resp.payload, Message.class);
+            }
+
+            switch (resp.code) {
+                default:
+                    throw new UnknownStatusCodeException("The server returned an unknown status code");
+            }
+        } catch (URISyntaxException | IOException e) {
+            throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
+        }
+    }
+
+    /**
      * Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
      */
     public void remove(String channelId, String messageId) throws ClientException {
