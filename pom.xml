@@ -1,6 +1,6 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.sdkfabric</groupId>
+  <groupId>org.sdk-fabric</groupId>
   <artifactId>discord</artifactId>
   <version>0.1.0</version>
   <packaging>jar</packaging>
@@ -17,6 +17,18 @@
   <scm>
     <url>https://github.com/sdk-fabric/discord-java</url>
   </scm>
+  <developers>
+    <developer>
+      <id>chriskapp</id>
+      <name>Christoph Kappestein</name>
+      <email>christoph.kappestein@gmail.com</email>
+      <url>https://chrisk.app/</url>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+  </developers>
   <build>
     <plugins>
       <plugin>
