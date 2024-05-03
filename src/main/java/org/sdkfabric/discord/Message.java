@@ -11,7 +11,7 @@ import java.util.List;
 public class Message {
     private String content;
     private String nonce;
-    private boolean tts;
+    private Boolean tts;
     private List<MessageEmbed> embeds;
     private MessageAllowedMentions allowedMentions;
     private String messageReference;
@@ -32,11 +32,11 @@ public class Message {
         return this.nonce;
     }
     @JsonSetter("tts")
-    public void setTts(boolean tts) {
+    public void setTts(Boolean tts) {
         this.tts = tts;
     }
     @JsonGetter("tts")
-    public boolean getTts() {
+    public Boolean getTts() {
         return this.tts;
     }
     @JsonSetter("embeds")

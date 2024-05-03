@@ -7,14 +7,13 @@ package org.sdkfabric.discord;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 public class MessageEmbed {
     private String title;
     private String type;
     private String description;
     private String url;
     private String timestamp;
-    private int color;
+    private Integer color;
     @JsonSetter("title")
     public void setTitle(String title) {
         this.title = title;
@@ -56,11 +55,11 @@ public class MessageEmbed {
         return this.timestamp;
     }
     @JsonSetter("color")
-    public void setColor(int color) {
+    public void setColor(Integer color) {
         this.color = color;
     }
     @JsonGetter("color")
-    public int getColor() {
+    public Integer getColor() {
         return this.color;
     }
 }

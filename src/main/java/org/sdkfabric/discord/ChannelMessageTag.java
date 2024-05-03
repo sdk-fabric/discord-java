@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChannelMessageTag extends TagAbstract {
@@ -33,7 +35,7 @@ public class ChannelMessageTag extends TagAbstract {
     /**
      * Retrieves the messages in a channel.
      */
-    public List<Message> getAll(String channelId, String around, String before, String after, int limit) throws ClientException {
+    public List<Message> getAll(String channelId, String around, String before, String after, Integer limit) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
             pathParams.put("channel_id", channelId);
@@ -44,8 +46,10 @@ public class ChannelMessageTag extends TagAbstract {
             queryParams.put("after", after);
             queryParams.put("limit", limit);
 
+            List<String> queryStructNames = new ArrayList<String>();
+
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages", pathParams));
-            this.parser.query(builder, queryParams);
+            this.parser.query(builder, queryParams, queryStructNames);
 
             HttpGet request = new HttpGet(builder.build());
 
@@ -77,8 +81,10 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
+            List<String> queryStructNames = new ArrayList<String>();
+
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id", pathParams));
-            this.parser.query(builder, queryParams);
+            this.parser.query(builder, queryParams, queryStructNames);
 
             HttpGet request = new HttpGet(builder.build());
 
@@ -102,17 +108,21 @@ public class ChannelMessageTag extends TagAbstract {
     /**
      * Post a message to a guild text or DM channel. Returns a message object. Fires a Message Create Gateway event. See message formatting for more information on how to properly format messages.
      */
-    public Message create(String channelId) throws ClientException {
+    public Message create(String channelId, Message payload) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
             pathParams.put("channel_id", channelId);
 
             Map<String, Object> queryParams = new HashMap<>();
 
+            List<String> queryStructNames = new ArrayList<String>();
+
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages", pathParams));
-            this.parser.query(builder, queryParams);
+            this.parser.query(builder, queryParams, queryStructNames);
 
             HttpPost request = new HttpPost(builder.build());
+            request.addHeader("Content-Type", "application/json");
+            request.setEntity(new StringEntity(this.objectMapper.writeValueAsString(payload), ContentType.APPLICATION_JSON));
 
             final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
                 return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
@@ -142,8 +152,10 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
+            List<String> queryStructNames = new ArrayList<String>();
+
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id", pathParams));
-            this.parser.query(builder, queryParams);
+            this.parser.query(builder, queryParams, queryStructNames);
 
             HttpPatch request = new HttpPatch(builder.build());
             request.addHeader("Content-Type", "application/json");
@@ -177,8 +189,10 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
+            List<String> queryStructNames = new ArrayList<String>();
+
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id", pathParams));
-            this.parser.query(builder, queryParams);
+            this.parser.query(builder, queryParams, queryStructNames);
 
             HttpDelete request = new HttpDelete(builder.build());
 
@@ -210,8 +224,10 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
+            List<String> queryStructNames = new ArrayList<String>();
+
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id/crosspost", pathParams));
-            this.parser.query(builder, queryParams);
+            this.parser.query(builder, queryParams, queryStructNames);
 
             HttpPost request = new HttpPost(builder.build());
 

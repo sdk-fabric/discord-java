@@ -7,12 +7,11 @@ package org.sdkfabric.discord;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 public class MessageReference {
     private String messageId;
     private String channelId;
     private String guildId;
-    private boolean failIfNotExists;
+    private Boolean failIfNotExists;
     @JsonSetter("message_id")
     public void setMessageId(String messageId) {
         this.messageId = messageId;
@@ -38,11 +37,11 @@ public class MessageReference {
         return this.guildId;
     }
     @JsonSetter("fail_if_not_exists")
-    public void setFailIfNotExists(boolean failIfNotExists) {
+    public void setFailIfNotExists(Boolean failIfNotExists) {
         this.failIfNotExists = failIfNotExists;
     }
     @JsonGetter("fail_if_not_exists")
-    public boolean getFailIfNotExists() {
+    public Boolean getFailIfNotExists() {
         return this.failIfNotExists;
     }
 }

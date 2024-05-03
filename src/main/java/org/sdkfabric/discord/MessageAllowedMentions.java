@@ -12,7 +12,7 @@ public class MessageAllowedMentions {
     private List<String> parse;
     private List<String> roles;
     private List<String> users;
-    private boolean repliedUser;
+    private Boolean repliedUser;
     @JsonSetter("parse")
     public void setParse(List<String> parse) {
         this.parse = parse;
@@ -38,11 +38,11 @@ public class MessageAllowedMentions {
         return this.users;
     }
     @JsonSetter("replied_user")
-    public void setRepliedUser(boolean repliedUser) {
+    public void setRepliedUser(Boolean repliedUser) {
         this.repliedUser = repliedUser;
     }
     @JsonGetter("replied_user")
-    public boolean getRepliedUser() {
+    public Boolean getRepliedUser() {
         return this.repliedUser;
     }
 }
