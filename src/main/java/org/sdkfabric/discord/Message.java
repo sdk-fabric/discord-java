@@ -15,6 +15,8 @@ public class Message {
     private List<MessageEmbed> embeds;
     private MessageAllowedMentions allowedMentions;
     private String messageReference;
+    private Integer flags;
+    private Boolean enforceNonce;
     @JsonSetter("content")
     public void setContent(String content) {
         this.content = content;
@@ -62,5 +64,21 @@ public class Message {
     @JsonGetter("message_reference")
     public String getMessageReference() {
         return this.messageReference;
+    }
+    @JsonSetter("flags")
+    public void setFlags(Integer flags) {
+        this.flags = flags;
+    }
+    @JsonGetter("flags")
+    public Integer getFlags() {
+        return this.flags;
+    }
+    @JsonSetter("enforce_nonce")
+    public void setEnforceNonce(Boolean enforceNonce) {
+        this.enforceNonce = enforceNonce;
+    }
+    @JsonGetter("enforce_nonce")
+    public Boolean getEnforceNonce() {
+        return this.enforceNonce;
     }
 }
