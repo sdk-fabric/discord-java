@@ -46,7 +46,7 @@ public class ChannelMessageTag extends TagAbstract {
             queryParams.put("after", after);
             queryParams.put("limit", limit);
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -81,7 +81,7 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -115,7 +115,7 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -152,7 +152,7 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -189,7 +189,7 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -224,7 +224,7 @@ public class ChannelMessageTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id/crosspost", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
