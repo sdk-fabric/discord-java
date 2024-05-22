@@ -41,6 +41,15 @@ public class ChannelTag extends TagAbstract {
         );
     }
 
+    public ChannelReactionTag reaction()
+    {
+        return new ChannelReactionTag(
+            this.httpClient,
+            this.objectMapper,
+            this.parser
+        );
+    }
+
 
     /**
      * Get a channel by ID. Returns a channel object.

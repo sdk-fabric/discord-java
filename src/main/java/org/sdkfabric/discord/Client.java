@@ -45,8 +45,8 @@ public class Client extends ClientAbstract {
 
 
 
-    public static Client build(String clientId, String clientSecret, TokenStoreInterface tokenStore, List<String> scopes) throws InvalidCredentialsException
+    public static Client build(String token) throws InvalidCredentialsException
     {
-        return new Client("https://discord.com/api/v10", new OAuth2(clientId, clientSecret, "https://discord.com/api/oauth2/token", "https://discord.com/oauth2/authorize", tokenStore, scopes));
+        return new Client("https://discord.com/api/v10", new HttpBearer(token));
     }
 }
