@@ -69,5 +69,37 @@ public class ChannelReactionTag extends TagAbstract {
         }
     }
 
+    public void deleteAll(String channelId, String messageId) throws ClientException {
+        try {
+            Map<String, Object> pathParams = new HashMap<>();
+            pathParams.put("channel_id", channelId);
+            pathParams.put("message_id", messageId);
+
+            Map<String, Object> queryParams = new HashMap<>();
+
+            List<String> queryStructNames = new ArrayList<>();
+
+            URIBuilder builder = new URIBuilder(this.parser.url("/channels/:channel_id/messages/:message_id/reactions", pathParams));
+            this.parser.query(builder, queryParams, queryStructNames);
+
+            HttpDelete request = new HttpDelete(builder.build());
+
+            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
+                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            });
+
+            if (resp.code >= 200 && resp.code < 300) {
+                return;
+            }
+
+            switch (resp.code) {
+                default:
+                    throw new UnknownStatusCodeException("The server returned an unknown status code");
+            }
+        } catch (URISyntaxException | IOException e) {
+            throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
+        }
+    }
+
 
 }
