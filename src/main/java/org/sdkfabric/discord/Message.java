@@ -7,12 +7,11 @@ package org.sdkfabric.discord;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 public class Message {
     private String content;
     private String nonce;
     private Boolean tts;
-    private List<MessageEmbed> embeds;
+    private java.util.List<MessageEmbed> embeds;
     private MessageAllowedMentions allowedMentions;
     private String messageReference;
     private Integer flags;
@@ -42,11 +41,11 @@ public class Message {
         return this.tts;
     }
     @JsonSetter("embeds")
-    public void setEmbeds(List<MessageEmbed> embeds) {
+    public void setEmbeds(java.util.List<MessageEmbed> embeds) {
         this.embeds = embeds;
     }
     @JsonGetter("embeds")
-    public List<MessageEmbed> getEmbeds() {
+    public java.util.List<MessageEmbed> getEmbeds() {
         return this.embeds;
     }
     @JsonSetter("allowed_mentions")

@@ -15,15 +15,15 @@ import app.sdkgen.client.Parser;
 import app.sdkgen.client.TokenStoreInterface;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.hc.client5.http.classic.methods.*;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.io.entity.*;
 import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.net.URLEncodedUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +37,15 @@ public class Client extends ClientAbstract {
     public ChannelTag channel()
     {
         return new ChannelTag(
+            this.httpClient,
+            this.objectMapper,
+            this.parser
+        );
+    }
+
+    public MessageTag message()
+    {
+        return new MessageTag(
             this.httpClient,
             this.objectMapper,
             this.parser
@@ -57,5 +66,10 @@ public class Client extends ClientAbstract {
     public static Client build(String token) throws InvalidCredentialsException
     {
         return new Client("https://discord.com/api/v10", new HttpBearer(token));
+    }
+
+    public static Client buildAnonymous() throws InvalidCredentialsException
+    {
+        return new Client("https://discord.com/api/v10", new Anonymous());
     }
 }

@@ -7,34 +7,33 @@ package org.sdkfabric.discord;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 public class MessageAllowedMentions {
-    private List<String> parse;
-    private List<String> roles;
-    private List<String> users;
+    private java.util.List<String> parse;
+    private java.util.List<String> roles;
+    private java.util.List<String> users;
     private Boolean repliedUser;
     @JsonSetter("parse")
-    public void setParse(List<String> parse) {
+    public void setParse(java.util.List<String> parse) {
         this.parse = parse;
     }
     @JsonGetter("parse")
-    public List<String> getParse() {
+    public java.util.List<String> getParse() {
         return this.parse;
     }
     @JsonSetter("roles")
-    public void setRoles(List<String> roles) {
+    public void setRoles(java.util.List<String> roles) {
         this.roles = roles;
     }
     @JsonGetter("roles")
-    public List<String> getRoles() {
+    public java.util.List<String> getRoles() {
         return this.roles;
     }
     @JsonSetter("users")
-    public void setUsers(List<String> users) {
+    public void setUsers(java.util.List<String> users) {
         this.users = users;
     }
     @JsonGetter("users")
-    public List<String> getUsers() {
+    public java.util.List<String> getUsers() {
         return this.users;
     }
     @JsonSetter("replied_user")
