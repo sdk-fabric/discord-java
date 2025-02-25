@@ -13,15 +13,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.io.entity.*;
 import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.net.URLEncodedUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,24 +30,6 @@ import java.util.Map;
 public class ChannelTag extends TagAbstract {
     public ChannelTag(HttpClient httpClient, ObjectMapper objectMapper, Parser parser) {
         super(httpClient, objectMapper, parser);
-    }
-
-    public ChannelMessageTag message()
-    {
-        return new ChannelMessageTag(
-            this.httpClient,
-            this.objectMapper,
-            this.parser
-        );
-    }
-
-    public ChannelReactionTag reaction()
-    {
-        return new ChannelReactionTag(
-            this.httpClient,
-            this.objectMapper,
-            this.parser
-        );
     }
 
 
@@ -68,24 +50,35 @@ public class ChannelTag extends TagAbstract {
 
             HttpGet request = new HttpGet(builder.build());
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Channel>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<Channel>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
@@ -94,7 +87,7 @@ public class ChannelTag extends TagAbstract {
     /**
      * Returns all pinned messages in the channel as an array of message objects.
      */
-    public List<Message> getPins(String channelId) throws ClientException {
+    public java.util.List<Message> getPins(String channelId) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
             pathParams.put("channel_id", channelId);
@@ -108,28 +101,40 @@ public class ChannelTag extends TagAbstract {
 
             HttpGet request = new HttpGet(builder.build());
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<java.util.List<Message>>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<List<Message>>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
     }
+
 
 
 }
