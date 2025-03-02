@@ -5,43 +5,56 @@
 
 package org.sdkfabric.discord;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class MessageReference {
+    @JsonPropertyDescription("Id of the originating message")
     private String messageId;
+    @JsonPropertyDescription("Id of the originating message's channel")
     private String channelId;
+    @JsonPropertyDescription("Id of the originating message's guild")
     private String guildId;
+    @JsonPropertyDescription("When sending, whether to error if the referenced message doesn't exist instead of sending as a normal (non-reply) message, default true")
     private Boolean failIfNotExists;
+
     @JsonSetter("message_id")
     public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
+
     @JsonGetter("message_id")
     public String getMessageId() {
         return this.messageId;
     }
+
     @JsonSetter("channel_id")
     public void setChannelId(String channelId) {
         this.channelId = channelId;
     }
+
     @JsonGetter("channel_id")
     public String getChannelId() {
         return this.channelId;
     }
+
     @JsonSetter("guild_id")
     public void setGuildId(String guildId) {
         this.guildId = guildId;
     }
+
     @JsonGetter("guild_id")
     public String getGuildId() {
         return this.guildId;
     }
+
     @JsonSetter("fail_if_not_exists")
     public void setFailIfNotExists(Boolean failIfNotExists) {
         this.failIfNotExists = failIfNotExists;
     }
+
     @JsonGetter("fail_if_not_exists")
     public Boolean getFailIfNotExists() {
         return this.failIfNotExists;
     }
 }
+

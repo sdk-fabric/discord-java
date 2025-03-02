@@ -5,61 +5,80 @@
 
 package org.sdkfabric.discord;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class MessageEmbed {
+    @JsonPropertyDescription("Title of embed")
     private String title;
+    @JsonPropertyDescription("Type of embed (always "rich" for webhook embeds)")
     private String type;
+    @JsonPropertyDescription("Description of embed")
     private String description;
+    @JsonPropertyDescription("Url of embed")
     private String url;
+    @JsonPropertyDescription("Timestamp of embed content")
     private String timestamp;
+    @JsonPropertyDescription("Color code of the embed")
     private Integer color;
+
     @JsonSetter("title")
     public void setTitle(String title) {
         this.title = title;
     }
+
     @JsonGetter("title")
     public String getTitle() {
         return this.title;
     }
+
     @JsonSetter("type")
     public void setType(String type) {
         this.type = type;
     }
+
     @JsonGetter("type")
     public String getType() {
         return this.type;
     }
+
     @JsonSetter("description")
     public void setDescription(String description) {
         this.description = description;
     }
+
     @JsonGetter("description")
     public String getDescription() {
         return this.description;
     }
+
     @JsonSetter("url")
     public void setUrl(String url) {
         this.url = url;
     }
+
     @JsonGetter("url")
     public String getUrl() {
         return this.url;
     }
+
     @JsonSetter("timestamp")
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
     @JsonGetter("timestamp")
     public String getTimestamp() {
         return this.timestamp;
     }
+
     @JsonSetter("color")
     public void setColor(Integer color) {
         this.color = color;
     }
+
     @JsonGetter("color")
     public Integer getColor() {
         return this.color;
     }
 }
+

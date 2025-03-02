@@ -5,43 +5,56 @@
 
 package org.sdkfabric.discord;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class MessageAllowedMentions {
+    @JsonPropertyDescription("An array of allowed mention types to parse from the content")
     private java.util.List<String> parse;
+    @JsonPropertyDescription("Array of role_ids to mention (Max size of 100)")
     private java.util.List<String> roles;
+    @JsonPropertyDescription("Array of user_ids to mention (Max size of 100)")
     private java.util.List<String> users;
+    @JsonPropertyDescription("For replies, whether to mention the author of the message being replied to (default false)")
     private Boolean repliedUser;
+
     @JsonSetter("parse")
     public void setParse(java.util.List<String> parse) {
         this.parse = parse;
     }
+
     @JsonGetter("parse")
     public java.util.List<String> getParse() {
         return this.parse;
     }
+
     @JsonSetter("roles")
     public void setRoles(java.util.List<String> roles) {
         this.roles = roles;
     }
+
     @JsonGetter("roles")
     public java.util.List<String> getRoles() {
         return this.roles;
     }
+
     @JsonSetter("users")
     public void setUsers(java.util.List<String> users) {
         this.users = users;
     }
+
     @JsonGetter("users")
     public java.util.List<String> getUsers() {
         return this.users;
     }
+
     @JsonSetter("replied_user")
     public void setRepliedUser(Boolean repliedUser) {
         this.repliedUser = repliedUser;
     }
+
     @JsonGetter("replied_user")
     public Boolean getRepliedUser() {
         return this.repliedUser;
     }
 }
+
