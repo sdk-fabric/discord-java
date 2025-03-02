@@ -226,9 +226,9 @@ public class MessageTag extends TagAbstract {
             HttpDelete request = new HttpDelete(builder.build());
 
 
-            return this.httpClient.execute(request, response -> {
+            this.httpClient.execute(request, response -> {
                 if (response.getCode() >= 200 && response.getCode() <= 299) {
-                    return;
+                    return null;
                 }
 
                 var statusCode = response.getCode();
@@ -348,9 +348,9 @@ public class MessageTag extends TagAbstract {
             HttpDelete request = new HttpDelete(builder.build());
 
 
-            return this.httpClient.execute(request, response -> {
+            this.httpClient.execute(request, response -> {
                 if (response.getCode() >= 200 && response.getCode() <= 299) {
-                    return;
+                    return null;
                 }
 
                 var statusCode = response.getCode();
