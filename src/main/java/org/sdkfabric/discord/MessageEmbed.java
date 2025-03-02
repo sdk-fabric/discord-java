@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.*;
 public class MessageEmbed {
     @JsonPropertyDescription("Title of embed")
     private String title;
-    @JsonPropertyDescription("Type of embed (always "rich" for webhook embeds)")
+    @JsonPropertyDescription("Type of embed (always rich for webhook embeds)")
     private String type;
     @JsonPropertyDescription("Description of embed")
     private String description;
