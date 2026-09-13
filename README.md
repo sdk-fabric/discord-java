@@ -18,19 +18,19 @@ Client client = Client::build("[access_token]");
 Channel response = client.channel().get("channel_id");
 
 // Update a channel's settings.
-Channel response = client.channel().update("channel_id", new ChannelUpdate());
+Channel response = client.channel().update("channel_id", new Channel_Update());
 
 // Delete a channel, or close a private message.
 Channel response = client.channel().delete("channel_id");
 
 // Returns all pinned messages in the channel as an array of message objects.
-List<Message> response = client.channel().getpins("channel_id");
+List<Message> response = client.channel().getPins("channel_id");
 
 // Create a new invite object for the channel.
-ChannelInvite response = client.channel().createinvite("channel_id", new ChannelInvite());
+Channel_Invite response = client.channel().createInvite("channel_id", new Channel_Invite());
 
 // Retrieves the messages in a channel.
-List<Message> response = client.message().getall("channel_id", "around", "before", "after", 1);
+List<Message> response = client.message().getAll("channel_id", "around", "before", "after", 1);
 
 // Retrieves a specific message in the channel.
 Message response = client.message().get("channel_id", "message_id");
@@ -47,12 +47,12 @@ Object response = client.message().remove("channel_id", "message_id");
 // Crosspost a message in an Announcement Channel to following channels.
 Message response = client.message().crosspost("channel_id", "message_id");
 
-List<User> response = client.message().getreactionsbyemoji("channel_id", "message_id", "emoji", 1, "after", 1);
+List<User> response = client.message().getReactionsByEmoji("channel_id", "message_id", "emoji", 1, "after", 1);
 
-Object response = client.message().deleteallreactions("channel_id", "message_id");
+Object response = client.message().deleteAllReactions("channel_id", "message_id");
 
 // Returns the user object of the requester's account.
-User response = client.user().getcurrent();
+User response = client.user().getCurrent();
 
 // Returns a user object for a given user ID.
 User response = client.user().get("user_id");
